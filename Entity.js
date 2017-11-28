@@ -35,8 +35,15 @@ class DatabaseConnector {
     constructor() {
         this.database = database
     }
-    select(id){
-        return this.database[id]
+    async select(id) {
+        return new Promise((resolve, reject) => {
+            if (this.database[id]) {
+                resolve(this.database[id]);
+            }
+            else {
+                reject(Error("It broke"));
+            }
+        });
     }
 }
 
@@ -45,10 +52,10 @@ class Database {
         this.db = new DatabaseConnector()
         this.cache = {}
     }
-    select(id) {
-        if(this.cache[id] === undefined) {
-            const data = this.db.select(id)
-            if(data === undefined){
+    async select(id) {
+        if (this.cache[id] === undefined) {
+            const data = await this.db.select(id)
+            if (data === undefined) {
                 return undefined
             }
             this.cache[id] = data
@@ -72,7 +79,8 @@ class EntityCollection {
         }
         return this
     }
-    findBySlug(slug) {
+    findBySlug(slug, autoGet) {
+        if (typeof (autoGet) === 'undefined') autoGet = true;
         let x = {}
         for (let i in this.collection) {
             let obj = this.collection[i]
@@ -81,8 +89,12 @@ class EntityCollection {
             }
             x[obj.slug].push(obj)
         }
-        if (x[slug].length === 1) {
-            return x[slug][0]
+        if (x[slug] && x[slug].length === 1) {
+            if(autoGet){
+                return x[slug][0].get()
+            } else {
+                return x[slug][0]
+            }
         } else {
             return new EntityCollection(x[slug], slug)
         }
@@ -108,12 +120,9 @@ class Entity {
             this.slug = slug
         }
         this.properties = {}
-        if (database[this.hash] instanceof Array) {
-            return this.get(0)
-        }
     }
-    fetch() {
-        this.properties = this.database.select(this.hash)
+    async fetch() {
+        this.properties = await this.database.select(this.hash)
         for (let key in this.properties) {
             let property = this.properties[key]
             if (typeof property == "object") {
@@ -123,9 +132,9 @@ class Entity {
         }
         return this
     }
-    get(property) {
+    async get(property) {
         if (this.properties) {
-            this.fetch()
+            await this.fetch()
         }
         if (property !== undefined) {
             if (typeof this.properties[property] == "object") {
@@ -133,6 +142,8 @@ class Entity {
             } else {
                 return this.properties[property]
             }
+        } else if (typeof this.properties[0] == "object") {
+            return new EntityCollection(this.properties[0], this.slug)
         } else {
             return this.properties
         }
@@ -140,6 +151,19 @@ class Entity {
 }
 
 let a = new Entity(4, "database")
-a.each((entity, hash) => {
-    console.log(entity.get())
-})
+a.get()
+    .then((database) => {
+        return database.findBySlug("nationalities")
+    })
+    .then((nationalities) => {
+        return nationalities.findBySlug("italian")
+    })
+    .then((italian) => {
+        return italian.findBySlug("tofur", false)
+    })
+    .then((tofur) => {
+        return tofur.get("name")
+    })
+    .then((name) => {
+        name
+    })
