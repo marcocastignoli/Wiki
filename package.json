@@ -4,7 +4,7 @@
   "description": "Find entities and follow relations in a distributed database.",
   "main": "build/distributed-database-explorer.js",
   "scripts": {
-    "test": "node test/explore.js"
+    "test": "mocha test/distributed-database-explorer.test.js -w"
   },
   "repository": {
     "type": "git",
@@ -20,5 +20,11 @@
   "bugs": {
     "url": "https://github.com/marcocastignoli/distributed-database-explorer/issues"
   },
-  "homepage": "https://github.com/marcocastignoli/distributed-database-explorer#readme"
+  "homepage": "https://github.com/marcocastignoli/distributed-database-explorer#readme",
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "chai-as-promised": "^7.1.1",
+    "i": "^0.3.6",
+    "mocha": "^4.0.1"
+  }
 }
