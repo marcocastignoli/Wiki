@@ -2,7 +2,7 @@
   "name": "distributed-database-explorer",
   "version": "1.0.0",
   "description": "Find entities and follow relations in a distributed database.",
-  "main": "built/distributed-database-explorer.js",
+  "main": "build/distributed-database-explorer.js",
   "scripts": {
     "test": "node test/explore.js"
   },
