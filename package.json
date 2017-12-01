@@ -1,14 +1,16 @@
 {
   "name": "distributed-database-explorer",
-  "version": "1.0.1",
+  "version": "0.0.0-development",
   "description": "Find entities and follow relations in a distributed database.",
   "main": "build/distributed-database-explorer.js",
   "scripts": {
-    "test": "mocha test/distributed-database-explorer.test.js -w"
+    "commit": "git-cz",
+    "test": "mocha test/distributed-database-explorer.test.js -w",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/marcocastignoli/distributed-database-explorer.git"
+    "url": "https://github.com/marcocastignoli/distributed-database-explorer.git"
   },
   "keywords": [
     "distributed",
@@ -24,7 +26,15 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
+    "commitizen": "^2.9.6",
+    "cz-conventional-changelog": "^2.1.0",
     "i": "^0.3.6",
-    "mocha": "^4.0.1"
+    "mocha": "^4.0.1",
+    "semantic-release": "^8.2.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "node_modules/cz-conventional-changelog"
+    }
   }
 }
