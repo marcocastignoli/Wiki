@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
         "target": "es5",
-        "sourceMap": true,
+        "sourceMap": false,
         "lib": ["dom", "es2015.promise", "es5"],
-        "outFile": "built/Wiki.js"
+        "outDir": "build/",
+        "module": "umd"
     },
     "include": [
         "src/**/*"

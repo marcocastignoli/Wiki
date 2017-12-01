@@ -154,20 +154,7 @@ class Entity {
     }
 }
 
-let a = new Entity("4", "database")
-a.get()
-    .then((database) => {
-        return database.findBySlug("nationalities")
-    })
-    .then((nationalities) => {
-        return nationalities.findBySlug("italian")
-    })
-    .then((italian) => {
-        return italian.findBySlug("tofur", false)
-    })
-    .then((tofur) => {
-        return tofur.get("name")
-    })
-    .then((name) => {
-        name
-    })
+export { Entity }
+export { EntityCollection }
+export { Database }
+export { DatabaseConnector }

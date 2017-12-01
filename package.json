@@ -1,0 +1,24 @@
+{
+  "name": "distributed-database-explorer",
+  "version": "1.0.1",
+  "description": "Find entities and follow relations in a distributed database.",
+  "main": "build/distributed-database-explorer.js",
+  "scripts": {
+    "test": "node test/explore.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marcocastignoli/distributed-database-explorer.git"
+  },
+  "keywords": [
+    "distributed",
+    "database",
+    "explorer"
+  ],
+  "author": "Marco Castignoli <marco@castignoli.it> (https://castignoli.it/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/marcocastignoli/distributed-database-explorer/issues"
+  },
+  "homepage": "https://github.com/marcocastignoli/distributed-database-explorer#readme"
+}
