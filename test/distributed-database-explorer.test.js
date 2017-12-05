@@ -1,3 +1,5 @@
+"use strict";
+
 var Entity = require("../build/distributed-database-explorer.js").Entity;
 var expect = require("chai").expect;
 
